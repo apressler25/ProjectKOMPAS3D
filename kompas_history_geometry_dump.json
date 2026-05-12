@@ -1,0 +1,1183 @@
+{
+    "Стакан.m3d": {
+        "PartVariables": {},
+        "OperationsTree": [
+            {
+                "IndexInTree": 0,
+                "ReferenceID": null,
+                "ActionName": "Начало координат",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": null,
+                "SubActions": [
+                    {
+                        "IndexInTree": 0,
+                        "ReferenceID": null,
+                        "ActionName": "Плоскость XY",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 1,
+                        "ReferenceID": null,
+                        "ActionName": "Плоскость ZX",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 2,
+                        "ReferenceID": null,
+                        "ActionName": "Плоскость ZY",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 3,
+                        "ReferenceID": null,
+                        "ActionName": "Ось X",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 4,
+                        "ReferenceID": null,
+                        "ActionName": "Ось Y",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 5,
+                        "ReferenceID": null,
+                        "ActionName": "Ось Z",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    }
+                ]
+            },
+            {
+                "IndexInTree": 1,
+                "ReferenceID": null,
+                "ActionName": "Эскиз:1",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": {
+                    "Lines": [
+                        {
+                            "X1": 0.0,
+                            "Y1": 0.0,
+                            "X2": 0.0,
+                            "Y2": 30.0
+                        },
+                        {
+                            "X1": 0.0,
+                            "Y1": 30.0,
+                            "X2": 8.0,
+                            "Y2": 30.0
+                        },
+                        {
+                            "X1": 0.0,
+                            "Y1": 0.0,
+                            "X2": 73.0,
+                            "Y2": 0.0
+                        },
+                        {
+                            "X1": 73.0,
+                            "Y1": 0.0,
+                            "X2": 73.0,
+                            "Y2": 21.0
+                        },
+                        {
+                            "X1": 73.0,
+                            "Y1": 21.0,
+                            "X2": 59.0,
+                            "Y2": 21.0
+                        },
+                        {
+                            "X1": 59.0,
+                            "Y1": 21.0,
+                            "X2": 59.0,
+                            "Y2": 31.75
+                        },
+                        {
+                            "X1": 8.0,
+                            "Y1": 30.0,
+                            "X2": 8.0,
+                            "Y2": 25.0
+                        },
+                        {
+                            "X1": 8.0,
+                            "Y1": 25.0,
+                            "X2": 42.0,
+                            "Y2": 25.0
+                        },
+                        {
+                            "X1": 42.0,
+                            "Y1": 25.0,
+                            "X2": 45.897,
+                            "Y2": 31.75
+                        },
+                        {
+                            "X1": 59.0,
+                            "Y1": 31.75,
+                            "X2": 45.897,
+                            "Y2": 31.75
+                        }
+                    ],
+                    "Circles": []
+                },
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 2,
+                "ReferenceID": null,
+                "ActionName": "Элемент вращения:1",
+                "FeatureType": 105,
+                "Variables": {
+                    "v18": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v21": {
+                        "Value": 360.0,
+                        "Expression": ""
+                    },
+                    "v22": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 3,
+                "ReferenceID": null,
+                "ActionName": "Эскиз:2",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": {
+                    "Lines": [
+                        {
+                            "X1": 0.0,
+                            "Y1": 31.75,
+                            "X2": -27.496,
+                            "Y2": 15.875
+                        },
+                        {
+                            "X1": -27.496,
+                            "Y1": 15.875,
+                            "X2": -27.496,
+                            "Y2": -15.875
+                        },
+                        {
+                            "X1": -27.496,
+                            "Y1": -15.875,
+                            "X2": -0.0,
+                            "Y2": -31.75
+                        },
+                        {
+                            "X1": -0.0,
+                            "Y1": -31.75,
+                            "X2": 27.496,
+                            "Y2": -15.875
+                        },
+                        {
+                            "X1": 27.496,
+                            "Y1": -15.875,
+                            "X2": 27.496,
+                            "Y2": 15.875
+                        },
+                        {
+                            "X1": 27.496,
+                            "Y1": 15.875,
+                            "X2": 0.0,
+                            "Y2": 31.75
+                        }
+                    ],
+                    "Circles": [
+                        {
+                            "Xc": 0.0,
+                            "Yc": 0.0,
+                            "Radius": 35.0
+                        }
+                    ]
+                },
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 4,
+                "ReferenceID": null,
+                "ActionName": "Элемент выдавливания:2",
+                "FeatureType": 105,
+                "Variables": {
+                    "v57": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v64": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v65": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v60": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v62": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 5,
+                "ReferenceID": null,
+                "ActionName": "Смещенная плоскость:1",
+                "FeatureType": 105,
+                "Variables": {
+                    "v77": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v78": {
+                        "Value": 34.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 6,
+                "ReferenceID": null,
+                "ActionName": "Эскиз:3",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": {
+                    "Lines": [
+                        {
+                            "X1": 0.0,
+                            "Y1": 0.0,
+                            "X2": -24.0,
+                            "Y2": 0.0
+                        }
+                    ],
+                    "Circles": [
+                        {
+                            "Xc": -24.0,
+                            "Yc": 0.0,
+                            "Radius": 10.0
+                        }
+                    ]
+                },
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 7,
+                "ReferenceID": null,
+                "ActionName": "Элемент выдавливания:3",
+                "FeatureType": 105,
+                "Variables": {
+                    "v80": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v84": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v85": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v86": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v88": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 8,
+                "ReferenceID": null,
+                "ActionName": "Эскиз:4",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": {
+                    "Lines": [
+                        {
+                            "X1": 0.0,
+                            "Y1": 0.0,
+                            "X2": 0.0,
+                            "Y2": 20.0
+                        },
+                        {
+                            "X1": 0.0,
+                            "Y1": 20.0,
+                            "X2": -53.0,
+                            "Y2": 20.0
+                        },
+                        {
+                            "X1": 0.0,
+                            "Y1": 0.0,
+                            "X2": -73.0,
+                            "Y2": 0.0
+                        },
+                        {
+                            "X1": -73.0,
+                            "Y1": 0.0,
+                            "X2": -73.0,
+                            "Y2": 12.0
+                        },
+                        {
+                            "X1": -73.0,
+                            "Y1": 12.0,
+                            "X2": -56.0,
+                            "Y2": 12.0
+                        },
+                        {
+                            "X1": 0.0,
+                            "Y1": 20.0,
+                            "X2": -53.0,
+                            "Y2": 20.0
+                        },
+                        {
+                            "X1": -73.0,
+                            "Y1": 0.0,
+                            "X2": -73.0,
+                            "Y2": -12.0
+                        },
+                        {
+                            "X1": -56.0,
+                            "Y1": 12.0,
+                            "X2": -53.0,
+                            "Y2": 15.0
+                        },
+                        {
+                            "X1": -53.0,
+                            "Y1": 20.0,
+                            "X2": -53.0,
+                            "Y2": 15.0
+                        }
+                    ],
+                    "Circles": []
+                },
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 9,
+                "ReferenceID": null,
+                "ActionName": "Элемент вращения:3",
+                "FeatureType": 105,
+                "Variables": {
+                    "v164": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v167": {
+                        "Value": 360.0,
+                        "Expression": ""
+                    },
+                    "v168": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 10,
+                "ReferenceID": null,
+                "ActionName": "Проточка наружная M42x2 У ГОСТ 10549-80",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": null,
+                "SubActions": [
+                    {
+                        "IndexInTree": 0,
+                        "ReferenceID": null,
+                        "ActionName": "Ось конической поверхности:1",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 1,
+                        "ReferenceID": null,
+                        "ActionName": "Смещенная плоскость:2",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v175": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v176": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 2,
+                        "ReferenceID": null,
+                        "ActionName": "ЛСК:1",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v177": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v181": {
+                                "Value": -59.0,
+                                "Expression": ""
+                            },
+                            "v182": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v183": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": [
+                            {
+                                "IndexInTree": 0,
+                                "ReferenceID": null,
+                                "ActionName": "Плоскость XY",
+                                "FeatureType": 105,
+                                "Variables": {},
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 1,
+                                "ReferenceID": null,
+                                "ActionName": "Плоскость ZX",
+                                "FeatureType": 105,
+                                "Variables": {},
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 2,
+                                "ReferenceID": null,
+                                "ActionName": "Плоскость ZY",
+                                "FeatureType": 105,
+                                "Variables": {},
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 3,
+                                "ReferenceID": null,
+                                "ActionName": "Ось X",
+                                "FeatureType": 105,
+                                "Variables": {
+                                    "v188": {
+                                        "Value": -1.0,
+                                        "Expression": ""
+                                    },
+                                    "v189": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v190": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    }
+                                },
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 4,
+                                "ReferenceID": null,
+                                "ActionName": "Ось Y",
+                                "FeatureType": 105,
+                                "Variables": {
+                                    "v192": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v193": {
+                                        "Value": -1.0,
+                                        "Expression": ""
+                                    },
+                                    "v194": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    }
+                                },
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 5,
+                                "ReferenceID": null,
+                                "ActionName": "Ось Z",
+                                "FeatureType": 105,
+                                "Variables": {
+                                    "v196": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v197": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v198": {
+                                        "Value": 1.0,
+                                        "Expression": ""
+                                    }
+                                },
+                                "Geometry": null,
+                                "SubActions": []
+                            }
+                        ]
+                    },
+                    {
+                        "IndexInTree": 3,
+                        "ReferenceID": null,
+                        "ActionName": "Эскиз:5",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": {
+                            "Lines": [
+                                {
+                                    "X1": 4.5,
+                                    "Y1": 21.0,
+                                    "X2": 3.146,
+                                    "Y2": 19.646
+                                },
+                                {
+                                    "X1": 2.793,
+                                    "Y1": 19.5,
+                                    "X2": 0.0,
+                                    "Y2": 19.5
+                                },
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 19.5,
+                                    "X2": 0.0,
+                                    "Y2": 21.0
+                                },
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 21.0,
+                                    "X2": 4.5,
+                                    "Y2": 21.0
+                                },
+                                {
+                                    "X1": -1.0,
+                                    "Y1": 0.0,
+                                    "X2": 1.0,
+                                    "Y2": 0.0
+                                }
+                            ],
+                            "Circles": []
+                        },
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 4,
+                        "ReferenceID": null,
+                        "ActionName": "Эскиз:6",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": {
+                            "Lines": [
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 20.5,
+                                    "X2": 0.0,
+                                    "Y2": 19.5
+                                },
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 19.5,
+                                    "X2": 1.0,
+                                    "Y2": 19.5
+                                },
+                                {
+                                    "X1": -1.0,
+                                    "Y1": 0.0,
+                                    "X2": 1.0,
+                                    "Y2": 0.0
+                                }
+                            ],
+                            "Circles": []
+                        },
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 5,
+                        "ReferenceID": null,
+                        "ActionName": "Элемент вращения:4",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v205": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v208": {
+                                "Value": 360.0,
+                                "Expression": ""
+                            },
+                            "v209": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 6,
+                        "ReferenceID": null,
+                        "ActionName": "Элемент вращения:5",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v214": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v217": {
+                                "Value": 360.0,
+                                "Expression": ""
+                            },
+                            "v218": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": []
+                    }
+                ]
+            },
+            {
+                "IndexInTree": 11,
+                "ReferenceID": null,
+                "ActionName": "Проточка наружная M42x2 У ГОСТ 10549-80 (1)",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": null,
+                "SubActions": [
+                    {
+                        "IndexInTree": 0,
+                        "ReferenceID": null,
+                        "ActionName": "Ось конической поверхности:2",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 1,
+                        "ReferenceID": null,
+                        "ActionName": "Смещенная плоскость:3",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v224": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v225": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 2,
+                        "ReferenceID": null,
+                        "ActionName": "ЛСК:2",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v226": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v230": {
+                                "Value": -59.0,
+                                "Expression": ""
+                            },
+                            "v231": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v232": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": [
+                            {
+                                "IndexInTree": 0,
+                                "ReferenceID": null,
+                                "ActionName": "Плоскость XY",
+                                "FeatureType": 105,
+                                "Variables": {},
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 1,
+                                "ReferenceID": null,
+                                "ActionName": "Плоскость ZX",
+                                "FeatureType": 105,
+                                "Variables": {},
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 2,
+                                "ReferenceID": null,
+                                "ActionName": "Плоскость ZY",
+                                "FeatureType": 105,
+                                "Variables": {},
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 3,
+                                "ReferenceID": null,
+                                "ActionName": "Ось X",
+                                "FeatureType": 105,
+                                "Variables": {
+                                    "v237": {
+                                        "Value": -1.0,
+                                        "Expression": ""
+                                    },
+                                    "v238": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v239": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    }
+                                },
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 4,
+                                "ReferenceID": null,
+                                "ActionName": "Ось Y",
+                                "FeatureType": 105,
+                                "Variables": {
+                                    "v241": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v242": {
+                                        "Value": -1.0,
+                                        "Expression": ""
+                                    },
+                                    "v243": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    }
+                                },
+                                "Geometry": null,
+                                "SubActions": []
+                            },
+                            {
+                                "IndexInTree": 5,
+                                "ReferenceID": null,
+                                "ActionName": "Ось Z",
+                                "FeatureType": 105,
+                                "Variables": {
+                                    "v245": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v246": {
+                                        "Value": 0.0,
+                                        "Expression": ""
+                                    },
+                                    "v247": {
+                                        "Value": 1.0,
+                                        "Expression": ""
+                                    }
+                                },
+                                "Geometry": null,
+                                "SubActions": []
+                            }
+                        ]
+                    },
+                    {
+                        "IndexInTree": 3,
+                        "ReferenceID": null,
+                        "ActionName": "Эскиз:7",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": {
+                            "Lines": [
+                                {
+                                    "X1": 4.5,
+                                    "Y1": 21.0,
+                                    "X2": 3.146,
+                                    "Y2": 19.646
+                                },
+                                {
+                                    "X1": 2.793,
+                                    "Y1": 19.5,
+                                    "X2": 0.0,
+                                    "Y2": 19.5
+                                },
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 19.5,
+                                    "X2": 0.0,
+                                    "Y2": 21.0
+                                },
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 21.0,
+                                    "X2": 4.5,
+                                    "Y2": 21.0
+                                },
+                                {
+                                    "X1": -1.0,
+                                    "Y1": 0.0,
+                                    "X2": 1.0,
+                                    "Y2": 0.0
+                                }
+                            ],
+                            "Circles": []
+                        },
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 4,
+                        "ReferenceID": null,
+                        "ActionName": "Эскиз:8",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": {
+                            "Lines": [
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 20.5,
+                                    "X2": 0.0,
+                                    "Y2": 19.5
+                                },
+                                {
+                                    "X1": 0.0,
+                                    "Y1": 19.5,
+                                    "X2": 1.0,
+                                    "Y2": 19.5
+                                },
+                                {
+                                    "X1": -1.0,
+                                    "Y1": 0.0,
+                                    "X2": 1.0,
+                                    "Y2": 0.0
+                                }
+                            ],
+                            "Circles": []
+                        },
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 5,
+                        "ReferenceID": null,
+                        "ActionName": "Элемент вращения:6",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v254": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v257": {
+                                "Value": 360.0,
+                                "Expression": ""
+                            },
+                            "v258": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": []
+                    },
+                    {
+                        "IndexInTree": 6,
+                        "ReferenceID": null,
+                        "ActionName": "Элемент вращения:7",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v263": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            },
+                            "v266": {
+                                "Value": 360.0,
+                                "Expression": ""
+                            },
+                            "v267": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": []
+                    }
+                ]
+            },
+            {
+                "IndexInTree": 12,
+                "ReferenceID": null,
+                "ActionName": "Условное изображение резьбы:8",
+                "FeatureType": 105,
+                "Variables": {
+                    "v516": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v519": {
+                        "Value": 42.0,
+                        "Expression": ""
+                    },
+                    "v524": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v518": {
+                        "Value": 2.0,
+                        "Expression": ""
+                    },
+                    "v522": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v517": {
+                        "Value": 20.0,
+                        "Expression": ""
+                    },
+                    "v523": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": [
+                    {
+                        "IndexInTree": 0,
+                        "ReferenceID": null,
+                        "ActionName": "Подгонка:8",
+                        "FeatureType": 105,
+                        "Variables": {},
+                        "Geometry": null,
+                        "SubActions": []
+                    }
+                ]
+            },
+            {
+                "IndexInTree": 13,
+                "ReferenceID": null,
+                "ActionName": "Условное изображение резьбы:9",
+                "FeatureType": 105,
+                "Variables": {
+                    "v544": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v547": {
+                        "Value": 42.0,
+                        "Expression": ""
+                    },
+                    "v552": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v546": {
+                        "Value": 2.0,
+                        "Expression": ""
+                    },
+                    "v550": {
+                        "Value": 1.0,
+                        "Expression": ""
+                    },
+                    "v545": {
+                        "Value": 10.853553390593277,
+                        "Expression": ""
+                    },
+                    "v551": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 14,
+                "ReferenceID": null,
+                "ActionName": "Фаска:1",
+                "FeatureType": 105,
+                "Variables": {
+                    "v558": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v559": {
+                        "Value": 1.0,
+                        "Expression": ""
+                    },
+                    "v560": {
+                        "Value": 45.0,
+                        "Expression": ""
+                    },
+                    "v561": {
+                        "Value": 2.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 15,
+                "ReferenceID": null,
+                "ActionName": "Эскиз:9",
+                "FeatureType": 105,
+                "Variables": {},
+                "Geometry": {
+                    "Lines": [
+                        {
+                            "X1": 0.0,
+                            "Y1": 0.0,
+                            "X2": -24.0,
+                            "Y2": 0.0
+                        }
+                    ],
+                    "Circles": []
+                },
+                "SubActions": []
+            },
+            {
+                "IndexInTree": 16,
+                "ReferenceID": null,
+                "ActionName": "Отверстие:2",
+                "FeatureType": 105,
+                "Variables": {
+                    "v690": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v711": {
+                        "Value": 16.662,
+                        "Expression": ""
+                    },
+                    "v710": {
+                        "Value": 1.337,
+                        "Expression": ""
+                    },
+                    "v715": {
+                        "Value": 15.908566107392609,
+                        "Expression": ""
+                    },
+                    "v714": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v724": {
+                        "Value": 14.949765602,
+                        "Expression": ""
+                    },
+                    "v725": {
+                        "Value": 1.0,
+                        "Expression": ""
+                    },
+                    "v718": {
+                        "Value": 0.0,
+                        "Expression": ""
+                    },
+                    "v719": {
+                        "Value": -23.99999987424839,
+                        "Expression": ""
+                    },
+                    "v720": {
+                        "Value": 1.0,
+                        "Expression": ""
+                    },
+                    "v727": {
+                        "Value": 18.149765602,
+                        "Expression": ""
+                    },
+                    "v728": {
+                        "Value": 1.6,
+                        "Expression": ""
+                    },
+                    "v729": {
+                        "Value": 90.0,
+                        "Expression": ""
+                    }
+                },
+                "Geometry": null,
+                "SubActions": [
+                    {
+                        "IndexInTree": 0,
+                        "ReferenceID": null,
+                        "ActionName": "G 3/8",
+                        "FeatureType": 105,
+                        "Variables": {
+                            "v711": {
+                                "Value": 16.662,
+                                "Expression": ""
+                            },
+                            "v710": {
+                                "Value": 1.337,
+                                "Expression": ""
+                            },
+                            "v715": {
+                                "Value": 15.908566107392609,
+                                "Expression": ""
+                            },
+                            "v714": {
+                                "Value": 0.0,
+                                "Expression": ""
+                            }
+                        },
+                        "Geometry": null,
+                        "SubActions": []
+                    }
+                ]
+            }
+        ]
+    }
+}

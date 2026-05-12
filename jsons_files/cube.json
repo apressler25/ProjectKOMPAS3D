@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "document": {
+    "type": "3d_part",
+    "units": "mm"
+  },
+  "operations": [
+    {
+      "op": "create_document_3d",
+      "params": {
+        "visible": true
+      }
+    },
+    {
+      "op": "create_sketch_on_plane",
+      "params": {
+        "plane": "XY"
+      }
+    },
+    {
+      "op": "draw_rectangle_center",
+      "params": {
+        "center": [0.0, 0.0],
+        "width": 10.0,
+        "height": 50.0
+      }
+    },
+    {
+      "op": "finish_sketch",
+      "params": {}
+    },
+    {
+      "op": "extrude_sketch",
+      "params": {
+        "direction": "normal",
+        "length": 50.0,
+        "type": "blind"
+      }
+    }
+  ]
+}

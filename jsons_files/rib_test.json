@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "document": {
+    "type": "3d_part",
+    "units": "mm"
+  },
+  "operations": [
+    {
+      "op": "create_document_3d",
+      "params": {
+        "visible": true
+      }
+    },
+    {
+      "op": "create_sketch_on_plane",
+      "params": {
+        "plane": "XY"
+      }
+    },
+    {
+      "op": "draw_rectangle_center",
+      "params": {
+        "center": [25.0, 0.0],
+        "width": 50.0,
+        "height": 50.0
+      }
+    },
+    {
+      "op": "finish_sketch",
+      "params": {}
+    },
+    {
+      "op": "extrude_sketch",
+      "params": {
+        "length": 10.0,
+        "direction": "normal",
+        "save_as": "base_plate"
+      }
+    },
+    {
+      "op": "create_sketch_on_face",
+      "params": {
+        "use_feature": "base_plate",
+        "face_index": 0
+      }
+    },
+    {
+      "op": "draw_rectangle_center",
+      "params": {
+        "center": [5.0, 0.0],
+        "width": 10.0,
+        "height": 50.0
+      }
+    },
+    {
+      "op": "finish_sketch",
+      "params": {}
+    },
+    {
+      "op": "extrude_sketch",
+      "params": {
+        "length": 50.0,
+        "direction": "normal",
+        "save_as": "wall"
+      }
+    },
+    {
+      "op": "create_sketch_on_plane",
+      "params": {
+        "plane": "ZX"
+      }
+    },
+    {
+      "op": "draw_line",
+      "params": {
+        "start": [10.0, -40.0],
+        "end": [40.0, -10.0]
+      }
+    },
+    {
+      "op": "finish_sketch",
+      "params": {}
+    },
+    {
+      "op": "rib",
+      "params": {
+        "thickness": 5.0,
+        "side": 2,
+        "reverse_direction": false,
+        "save_as": "my_rib"
+      }
+    }
+  ]
+}

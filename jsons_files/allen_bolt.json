@@ -1,0 +1,123 @@
+{
+  "version": "1.0",
+  "document": {
+    "type": "3d_part",
+    "units": "mm"
+  },
+  "operations": [
+    {
+      "op": "create_document_3d",
+      "params": {
+        "visible": true
+      }
+    },
+    {
+      "op": "create_sketch_on_plane",
+      "params": {
+        "plane": "XY"
+      }
+    },
+    {
+      "op": "draw_circle",
+      "params": {
+        "center": [0.0, 0.0],
+        "radius": 6.0
+      }
+    },
+    {
+      "op": "finish_sketch",
+      "params": {}
+    },
+    {
+      "op": "extrude_sketch",
+      "params": {
+        "length": 40.0,
+        "save_as": "shaft"
+      }
+    },
+    {
+      "op": "chamfer_all_edges",
+      "params": {
+        "use_feature": "shaft",
+        "distance": 1.0
+      }
+    },
+    {
+      "op": "add_thread",
+      "params": {
+        "use_feature": "shaft",
+        "length": 30.0,
+        "pitch": 1.75
+      }
+    },
+    {
+      "op": "create_sketch_on_face",
+      "params": {
+        "use_feature": "shaft",
+        "face_index": 0
+      }
+    },
+    {
+      "op": "draw_circle",
+      "params": {
+        "center": [0.0, 0.0],
+        "radius": 10.0
+      }
+    },
+    {
+      "op": "finish_sketch",
+      "params": {}
+    },
+    {
+      "op": "extrude_sketch",
+      "params": {
+        "length": 12.0,
+        "save_as": "head"
+      }
+    },
+    {
+      "op": "fillet_all_edges",
+      "params": {
+        "use_feature": "head",
+        "radius": 1.0
+      }
+    },
+    {
+      "op": "create_sketch_on_face",
+      "params": {
+        "use_feature": "head",
+        "face_index": 0
+      }
+    },
+    {
+      "op": "draw_polygon",
+      "params": {
+        "center": [0.0, 0.0],
+        "sides": 6,
+        "radius": 5.0,
+        "describe": false
+      }
+    },
+    {
+      "op": "finish_sketch",
+      "params": {}
+    },
+    {
+      "op": "extrude_cut",
+      "params": {
+        "direction": "normal",
+        "through_all": false,
+        "length": 7.0,
+        "save_as": "hex_hole"
+      }
+    },
+    {
+      "op": "set_material_and_color",
+      "params": {
+        "material": "Сталь 45 ГОСТ 1050-88",
+        "density": 7.85,
+        "color": [45, 48, 55]
+      }
+    }
+  ]
+}
