@@ -4,8 +4,8 @@ from json_runner import JsonKompasRunner
 
 def main():
     # json_file = "jsons_files\\test.json"
-    # json_file = "jsons_files\\rib_test.json"
-    json_file = "jsons_files\\models_m3d.json"
+    json_file = "jsons_files\\opore.json"
+    # json_file = "jsons_files\\models_m3d.json"
     if not os.path.exists(json_file):
         print(f"Файл {json_file} не найден!")
         return

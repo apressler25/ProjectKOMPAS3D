@@ -586,21 +586,29 @@ def op_create_sketch_on_face(runner, params):
         else:
             base_face = faces[faces_count - 1]
 
-    model_container = runner.module7.IModelContainer(part)
+        model_container = runner.module7.IModelContainer(part)
     sketches = model_container.Sketchs
     sketch = sketches.Add()
     sketch.Plane = base_face
     sketch.Update()
-    sketch.BeginEdit()
     
+    # === ИСПРАВЛЕННЫЙ БЛОК ===
+    try:
+        sketch_doc = sketch.BeginEdit()
+        runner.ctx["sketch_doc"] = sketch_doc
+        runner.ctx["current_contour_points"] = []  # очищаем точки прошлого контура
+    except Exception as e:
+        print(f"Ошибка при входе в эскиз на грани: {e}")
+        return
+
     runner.ctx["sketch"] = sketch
     if save_as:
         if "saved_features" not in runner.ctx:
             runner.ctx["saved_features"] = {}
         runner.ctx["saved_features"][save_as] = sketch
-        
-    print(f"Создан эскиз на грани" + (f" (сохранен как '{save_as}')" if save_as else ""))
 
+    print(f"Создан эскиз на грани" + (f" (сохранен как '{save_as}')" if save_as else ""))
+    # ==========================
 
 def op_set_material_and_color(runner, params):
     """
@@ -921,55 +929,64 @@ def op_create_sketch_on_plane(runner, params):
 def op_draw_line(runner, params):
     """
     Рисует линию в текущем ОТКРЫТОМ эскизе.
+    Параметр is_axis=True делает линию осевой (стиль 3), что необходимо для линии контура,
+    лежащей на оси вращения, чтобы избежать ошибки самопересечения.
     """
     sketch_doc = runner.ctx.get("sketch_doc")
     if not sketch_doc:
-        print("Ошибка: Нет открытого эскиза (sketch_doc).")
+        print("Пропуск draw_line: Нет открытого эскиза.")
         return
-        
+
     start = params.get("start")
     end = params.get("end")
     dx = params.get("dx")
     dy = params.get("dy")
     
+    # Читаем явное указание от LLM
+    is_axis = params.get("is_axis", False)
+
     points = runner.ctx.get("current_contour_points", [])
-    
-    
+
     if start is None:
         if points:
             start = points[-1]
         else:
             start = [0.0, 0.0]
-            
+
     if end is None:
         if dx is not None and dy is not None:
             end = [start[0] + dx, start[1] + dy]
         else:
             print("Ошибка: недостаточно параметров для draw_line")
             return
-            
+
     import win32com.client
-    # В API7 документ эскиза (IFragmentDocument) поддерживает интерфейс IKompasDocument2D
     doc2d = win32com.client.CastTo(sketch_doc, 'IKompasDocument2D')
     if doc2d:
         try:
-            # Получаем менеджер видов 2D документа эскиза
             views = doc2d.ViewsAndLayersManager.Views
             active_view = views.ActiveView
             drawing_container = win32com.client.CastTo(active_view, 'IDrawingContainer')
             lines = drawing_container.LineSegments
+            
             line = lines.Add()
             line.X1, line.Y1 = start[0], start[1]
             line.X2, line.Y2 = end[0], end[1]
-            # line.Style = params.get("style", 1) 
-            line.Update()
             
-            # Сохраняем точки для продолжения контура
+            # Применяем стиль: 3 (Осевая) если is_axis == True, иначе 1 (Основная)
+            style = 3 if is_axis else 1
+            line.Style = style
+            line.Update()
+
+            # Добавляем точки в трекер контура, чтобы следующие линии рисовались отсюда
             if not points:
                 points.append(start)
             points.append(end)
             runner.ctx["current_contour_points"] = points
-            print(f"Нарисован отрезок от {start} до {end}")
+            
+            style_name = "Осевая" if style == 3 else "Основная"
+            print(f"Нарисован отрезок от {start} до {end} (Стиль: {style_name})")
+            
         except Exception as e:
             print(f"Ошибка при рисовании линии: {e}")
     else:
@@ -1053,14 +1070,6 @@ def _get_axis_object(part, axis_name):
 
 
 def op_revolve_sketch(runner, params):
-    """
-    Вращение текущего эскиза вокруг оси, заданной отрезком в этом же эскизе.
-    Берется первый найденный отрезок как ось вращения.
-    
-    Параметры:
-      - angle (float, по умолчанию 360.0): угол вращения в градусах.
-      - save_as (str, опционально): имя для сохранения операции.
-    """
     part = runner.ctx.get("part")
     sketch = runner.ctx.get("sketch")
 
@@ -1071,33 +1080,12 @@ def op_revolve_sketch(runner, params):
     import win32com.client
 
     angle = float(params.get("angle", 360.0))
+    axis_name = str(params.get("axis", "X")).upper()
     save_as = params.get("save_as")
 
-    # 1. Получаем документ эскиза и ищем в нем первый отрезок (ось вращения)
-    sketch_doc = runner.ctx.get("sketch_doc")
-    if not sketch_doc:
-        print("Ошибка: нет открытого документа эскиза (sketch_doc) для поиска оси.")
-        return
-
-    try:
-        doc2d = win32com.client.CastTo(sketch_doc, "IKompasDocument2D")
-        views = doc2d.ViewsAndLayersManager.Views
-        active_view = views.ActiveView
-        drawing_container = win32com.client.CastTo(active_view, "IDrawingContainer")
-        lines = drawing_container.LineSegments
-        if lines.Count == 0:
-            print("Ошибка: в эскизе нет отрезков для использования в качестве оси вращения.")
-            return
-        axis_line = lines.Item(0)
-    except Exception as e:
-        print(f"Ошибка при поиске отрезка-оси в эскизе: {e}")
-        return
-
-    # 2. Создаем элемент вращения в API7
     model_container = runner.module7.IModelContainer(part)
     rotateds = model_container.Rotateds
 
-    # 28 = o3d_bossRotated (элемент вращения)
     rotated = rotateds.Add(28)
     if rotated is None:
         print("Ошибка: не удалось создать операцию вращения.")
@@ -1108,7 +1096,6 @@ def op_revolve_sketch(runner, params):
     except Exception:
         i_rotated = rotated
 
-    # 3. Назначаем профиль (эскиз)
     sketch_assigned = False
     try:
         i_rotated.Profile = sketch
@@ -1127,28 +1114,25 @@ def op_revolve_sketch(runner, params):
         print("Ошибка: не удалось назначить эскиз в операцию вращения.")
         return
 
-    # 4. Назначаем угол
-    if abs(angle - 360.0) < 0.1:
-        try:
-            i_rotated.Torus = True
-        except Exception:
-            pass
-    else:
-        try:
-            i_rotated.Angle1 = angle
-        except Exception:
-            pass
-
-    # 5. Назначаем ось вращения как направляющий объект (отрезок из эскиза)
+    # Назначаем угол (без Torus)
     try:
-        i_rotated.Axis = axis_line
+        i_rotated.Angle1 = angle
+    except Exception:
+        pass
+
+    # Назначаем ось
+    axis_codes = {"X": 4, "Y": 5, "Z": 6}
+    axis_code = axis_codes.get(axis_name, 4)
+    
+    try:
+        axis_obj = part.DefaultObject(axis_code)
+        i_rotated.Axis = axis_obj
     except Exception as e:
-        print(f"Ошибка при назначении оси вращения по отрезку: {e}")
+        print(f"Ошибка при привязке базовой оси {axis_name}: {e}")
         return
 
-    # 6. Строим операцию
     if not rotated.Update():
-        print("Ошибка: операция вращения не построена. Проверьте замкнутость эскиза и положение оси.")
+        print("Ошибка: операция вращения не построена. Возможно, контур самопересекается.")
         return
 
     runner.ctx["last_feature"] = rotated
@@ -1157,5 +1141,5 @@ def op_revolve_sketch(runner, params):
             runner.ctx["saved_features"] = {}
         runner.ctx["saved_features"][save_as] = rotated
 
-    print(f"Выполнено вращение эскиза на {angle}° вокруг оси, заданной отрезком эскиза"
+    print(f"Выполнено вращение эскиза на {angle}° вокруг оси {axis_name}"
           + (f" (сохранено как '{save_as}')" if save_as else ""))
