@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import pythoncom
 
 def get_resource_path(relative_path):
     """ Получает абсолютный путь к ресурсу """
@@ -43,8 +44,12 @@ def run_kompas_build(json_path):
     """Фоновая задача для запуска процесса построения."""
     def background_task():
         try:
-            btn_text_build.config(state=tk.DISABLED)
-            btn_file_build.config(state=tk.DISABLED)
+            # ИНИЦИАЛИЗАЦИЯ COM ДЛЯ ФОНОВОГО ПОТОКА!
+            pythoncom.CoInitialize() 
+            
+            # Отключаем актуальные кнопки (через root.after для безопасности UI)
+            root.after(0, lambda: btn_clipboard_build.config(state=tk.DISABLED))
+            root.after(0, lambda: btn_file_build.config(state=tk.DISABLED))
             
             module7, app, const7 = get_kompas_api7()
             app.Visible = True
@@ -54,26 +59,40 @@ def run_kompas_build(json_path):
             
             root.after(0, lambda: messagebox.showinfo("Успех", "Модель успешно построена!"))
         except Exception as e:
-            root.after(0, lambda: messagebox.showerror("Ошибка построения", f"Произошла ошибка в КОМПАС-3D:\n{e}"))
+            error_msg = str(e)
+            root.after(0, lambda: messagebox.showerror("Ошибка построения", f"Произошла ошибка в КОМПАС-3D:\n{error_msg}"))
         finally:
-            root.after(0, lambda: btn_text_build.config(state=tk.NORMAL))
+            # Освобождаем COM (хорошая практика)
+            pythoncom.CoUninitialize()
+            
+            # Включаем кнопки обратно
+            root.after(0, lambda: btn_clipboard_build.config(state=tk.NORMAL))
             root.after(0, lambda: btn_file_build.config(state=tk.NORMAL))
 
     threading.Thread(target=background_task, daemon=True).start()
 
-def build_from_text():
-    """Забирает JSON из текстового поля, проверяет его и запускает построение."""
-    json_content = text_area.get("1.0", tk.END).strip()
+def build_from_clipboard():
+    """Забирает JSON напрямую из буфера обмена, проверяет его и запускает построение."""
+    try:
+        # Пытаемся получить текст из буфера обмена
+        json_content = root.clipboard_get().strip()
+    except tk.TclError:
+        # Ошибка возникает, если в буфере пусто или находится не текст (например, картинка или файл)
+        messagebox.showwarning("Внимание", "Буфер обмена пуст или содержит не текстовые данные!")
+        return
+
     if not json_content:
-        messagebox.showwarning("Внимание", "Текстовое поле пустое!")
+        messagebox.showwarning("Внимание", "Буфер обмена пуст!")
         return
     
+    # Проверяем валидность JSON
     try:
         json.loads(json_content)
     except json.JSONDecodeError as e:
-        messagebox.showerror("Ошибка JSON", f"Неверный формат JSON:\n{e}\n\nПроверьте запятые и кавычки.")
+        messagebox.showerror("Ошибка JSON", f"В буфере обмена находится невалидный JSON:\n{e}\n\nПроверьте скопированный текст.")
         return
         
+    # Сохраняем во временный файл и запускаем Компас
     try:
         with open(TEMP_JSON_FILE, "w", encoding="utf-8") as f:
             f.write(json_content)
@@ -182,17 +201,28 @@ lbl_prompt.pack(anchor="w")
 btn_copy = tk.Button(frame_prompt, text="📋 Скопировать промпт", command=copy_prompt_to_clipboard, width=30)
 btn_copy.pack(pady=5)
 
-# Блок 2: Ввод текста
+# Блок 2: Построение
 frame_text = tk.LabelFrame(root, text="Шаг 2: Построение (Text to CAD)", padx=10, pady=10)
 frame_text.pack(fill="x", padx=10, pady=5)
 
-text_area = tk.Text(frame_text, height=8, width=50)
-text_area.pack(pady=5)
+btn_clipboard_build = tk.Button(
+    frame_text, 
+    text="📋 Построить из буфера обмена", 
+    command=build_from_clipboard, 
+    bg="#4CAF50", 
+    fg="white", 
+    width=30
+)
+btn_clipboard_build.pack(pady=5)
 
-btn_text_build = tk.Button(frame_text, text="▶ Построить из текста", command=build_from_text, bg="#4CAF50", fg="white", width=30)
-btn_text_build.pack()
-
-btn_file_build = tk.Button(frame_text, text="📁 Выбрать .json файл с диска", command=build_from_file, bg="#2196F3", fg="white", width=30)
+btn_file_build = tk.Button(
+    frame_text, 
+    text="📁 Выбрать .json файл с диска", 
+    command=build_from_file, 
+    bg="#2196F3", 
+    fg="white", 
+    width=30
+)
 btn_file_build.pack(pady=5)
 
 # Блок 3: Парсинг (CAD to JSON)
