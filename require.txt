@@ -1,6 +1,2 @@
 pywin32
-torch 
-transformers 
-trimesh 
-open3d 
-numpy
+pyinstaller

@@ -1,2 +1,42 @@
 /venv95
 /venv
+
+# 1. Временные файлы приложения и дампы
+temp_gui_model.json
+*_dump.json
+kompas_history_geometry_dump.json
+kompas_directory_dump.json
+
+# 2. Папки с тестовыми или локальными моделями КОМПАСа
+# (Раскомментируйте, если не хотите пушить CAD-файлы в репозиторий)
+# models_kompas/
+# *.m3d
+# *.a3d
+# *.cdw
+
+# 3. Артефакты сборки PyInstaller
+build/
+dist/
+*.spec
+
+# 4. Виртуальные окружения Python
+venv/
+env/
+.env
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 5. Кэш COM-объектов (pywin32)
+gen_py/
+
+# 6. Настройки IDE (VS Code, PyCharm и др.)
+.vscode/
+.idea/
+*.swp
+*.suo
+
+# 7. Системные файлы ОС
+.DS_Store
+Thumbs.db
+Desktop.ini

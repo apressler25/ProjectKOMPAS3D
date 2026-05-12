@@ -22,43 +22,6 @@ def op_create_document_3d(runner, params):
     print("Создан 3D документ")
 
 
-# def op_create_sketch_on_plane(runner, params):
-#     """
-#     Создает эскиз на базовой плоскости (XY, ZX, YOZ).
-    
-#     Параметры (params):
-#       - plane (str, по умолчанию "XY"): имя плоскости ("XY", "ZX", "YZ").
-#       - save_as (str, опционально): имя, под которым сохранить эскиз в контексте.
-#     """
-#     plane_str = params.get("plane", "XY")
-#     save_as = params.get("save_as")
-#     part = runner.ctx["part"]
-    
-#     # Прямые числовые коды констант ksObj3dTypeEnum:
-#     if plane_str == "XY":
-#         plane = part.DefaultObject(1)  # 1 = XOY
-#     elif plane_str == "ZX":
-#         plane = part.DefaultObject(2)  # 2 = XOZ
-#     else:
-#         plane = part.DefaultObject(3)  # 3 = YOZ
-        
-#     model_container = runner.module7.IModelContainer(part)
-#     sketch = model_container.Sketchs.Add()
-#     sketch.Plane = plane
-#     sketch.Update()
-    
-#     # Входим в режим редактирования эскиза
-#     sketch.BeginEdit()
-    
-#     runner.ctx["sketch"] = sketch
-#     if save_as:
-#         if "saved_features" not in runner.ctx:
-#             runner.ctx["saved_features"] = {}
-#         runner.ctx["saved_features"][save_as] = sketch
-        
-#     print(f"Создан эскиз на плоскости {plane_str}" + (f" (сохранен как '{save_as}')" if save_as else ""))
-
-
 def op_extrude_sketch(runner, params):
     """
     Выдавливает текущий эскиз, добавляя материал (Boss Extrusion).
@@ -75,7 +38,6 @@ def op_extrude_sketch(runner, params):
     model_container = runner.module7.IModelContainer(part)
     extrusions = model_container.Extrusions
     
-    # 24 = o3d_bossExtrusion
     extrusion = extrusions.Add(24)
     
     if extrusion is None:
@@ -131,7 +93,6 @@ def op_extrude_cut(runner, params):
     extrusion = extrusions.Add(25)
     
     import win32com.client
-    # Чтобы задать результат операции (Вычитание) и эскиз, нужен интерфейс IExtrusion1
     try:
         extrusion1 = win32com.client.CastTo(extrusion, 'IExtrusion1')
         extrusion1.Profile = sketch
@@ -140,7 +101,6 @@ def op_extrude_cut(runner, params):
         print(f"Предупреждение: не удалось получить интерфейс IExtrusion1 ({e}). Пробуем через базовый.")
         extrusion.Profile = sketch
     
-    # Если through_all = True, используем etThroughAll (1), иначе etBlind (0)
     end_type = 1 if through_all else 0
     
     # Настраиваем направление
@@ -265,37 +225,6 @@ def op_draw_polygon(runner, params):
     polygon.Update()
     
     print(f"Нарисован {sides}-угольник (R={radius}) в точке ({x}, {y})")
-
-
-# def op_finish_sketch(runner, params):
-#     """
-#     Завершает редактирование текущего эскиза.
-    
-#     Параметры (params):
-#       - save_as (str, опционально): имя для сохранения эскиза в словаре.
-#     """
-#     sketch = runner.ctx.get("sketch")
-#     part = runner.ctx.get("part")
-#     save_as = params.get("save_as")
-    
-#     if sketch:
-#         sketch.EndEdit()
-#         sketch.Update()
-        
-#         if part:
-#             part.Update()
-            
-#         runner.ctx["last_feature"] = sketch
-#         runner.ctx.pop("last_point", None)
-#         runner.ctx.pop("first_point", None)
-#         if save_as:
-#             if "saved_features" not in runner.ctx:
-#                 runner.ctx["saved_features"] = {}
-#             runner.ctx["saved_features"][save_as] = sketch
-            
-#         print("Эскиз завершен" + (f" (сохранен как '{save_as}')" if save_as else ""))
-#     else:
-#         print("Нет активного эскиза для завершения")
 
 
 def op_chamfer_all_edges(runner, params):
@@ -592,11 +521,10 @@ def op_create_sketch_on_face(runner, params):
     sketch.Plane = base_face
     sketch.Update()
     
-    # === ИСПРАВЛЕННЫЙ БЛОК ===
     try:
         sketch_doc = sketch.BeginEdit()
         runner.ctx["sketch_doc"] = sketch_doc
-        runner.ctx["current_contour_points"] = []  # очищаем точки прошлого контура
+        runner.ctx["current_contour_points"] = []  
     except Exception as e:
         print(f"Ошибка при входе в эскиз на грани: {e}")
         return
@@ -608,7 +536,6 @@ def op_create_sketch_on_face(runner, params):
         runner.ctx["saved_features"][save_as] = sketch
 
     print(f"Создан эскиз на грани" + (f" (сохранен как '{save_as}')" if save_as else ""))
-    # ==========================
 
 def op_set_material_and_color(runner, params):
     """
@@ -668,92 +595,6 @@ def op_save_document(runner, params):
     doc.SaveAs(path)
     print(f"Документ сохранен по пути: {path}")
 
-# def op_draw_line(runner, params):
-#     """
-#     Рисует отрезок (линию) в текущем эскизе.
-#     Если не указана точка start, линия начинается с конца предыдущей линии.
-#     Конечную точку можно задать абсолютно (end) или относительно (dx, dy).
-    
-#     Параметры:
-#       - start (list[float], опционально): [X, Y] начала. Если нет, берется last_point.
-#       - end (list[float], опционально): [X, Y] конца.
-#       - dx (float), dy (float) (опционально): смещение относительно начала (вместо end).
-#     """
-#     # Определяем начальную точку
-#     if "start" in params:
-#         x1, y1 = params["start"]
-#     elif "last_point" in runner.ctx:
-#         x1, y1 = runner.ctx["last_point"]
-#     else:
-#         x1, y1 = 0.0, 0.0
-
-#     # Сохраняем первую точку контура, если её еще нет
-#     if "first_point" not in runner.ctx:
-#         runner.ctx["first_point"] = [x1, y1]
-
-#     # Определяем конечную точку
-#     if "end" in params:
-#         x2, y2 = params["end"]
-#     elif "dx" in params or "dy" in params:
-#         dx = params.get("dx", 0.0)
-#         dy = params.get("dy", 0.0)
-#         x2 = x1 + dx
-#         y2 = y1 + dy
-#     else:
-#         raise ValueError("Для draw_line необходимо указать 'end' [X, Y] или 'dx'/'dy'")
-
-#     import win32com.client
-#     app7 = win32com.client.Dispatch("Kompas.Application.7")
-#     sketch_doc = runner.ctx.get("sketch_doc", app7.ActiveDocument)
-#     doc2d = win32com.client.CastTo(sketch_doc, 'IKompasDocument2D')
-#     view = doc2d.ViewsAndLayersManager.Views.ActiveView
-#     drawing_container = win32com.client.CastTo(view, 'IDrawingContainer')
-
-#     # Рисуем линию
-#     lines = drawing_container.LineSegments
-#     line = lines.Add()
-#     line.X1 = x1
-#     line.Y1 = y1
-#     line.X2 = x2
-#     line.Y2 = y2
-#     line.Update()
-
-#     # Обновляем последнюю точку
-#     runner.ctx["last_point"] = [x2, y2]
-    
-#     print(f"Нарисован отрезок от ({x1}, {y1}) до ({x2}, {y2})")
-
-
-# def op_close_contour(runner, params):
-#     """
-#     Замыкает контур: рисует линию от последней точки (last_point) к первой (first_point).
-#     """
-#     if "last_point" not in runner.ctx or "first_point" not in runner.ctx:
-#         print("Невозможно замкнуть контур: нет начальных или конечных точек.")
-#         return
-        
-#     x1, y1 = runner.ctx["last_point"]
-#     x2, y2 = runner.ctx["first_point"]
-    
-#     # Чтобы не дублировать код API, можно просто вызвать op_draw_line
-#     # Но мы нарисуем напрямую для надежности:
-#     import win32com.client
-#     app7 = win32com.client.Dispatch("Kompas.Application.7")
-#     sketch_doc = runner.ctx.get("sketch_doc", app7.ActiveDocument)
-#     doc2d = win32com.client.CastTo(sketch_doc, 'IKompasDocument2D')
-#     drawing_container = win32com.client.CastTo(doc2d.ViewsAndLayersManager.Views.ActiveView, 'IDrawingContainer')
-    
-#     lines = drawing_container.LineSegments
-#     line = lines.Add()
-#     line.X1 = x1
-#     line.Y1 = y1
-#     line.X2 = x2
-#     line.Y2 = y2
-#     line.Update()
-    
-#     runner.ctx["last_point"] = [x2, y2]
-#     print(f"Контур замкнут линией от ({x1}, {y1}) до ({x2}, {y2})")
-    
 def op_rib(runner, params):
     """
     Создает ребро жесткости по текущему эскизу (обычно это эскиз с одной линией).
@@ -804,7 +645,6 @@ def op_rib(runner, params):
         print(f"Предупреждение при настройке толщины ребра: {e}")
 
     # 3. Направление "дотягивания" до тела
-    # В разных версиях API это может быть Direction, ReverseDirection или свойство внутри IExtrusion
     try:
         if hasattr(rib, 'Direction'):
             rib.Direction = 1 if reverse_dir else 0
@@ -824,25 +664,6 @@ def op_rib(runner, params):
     print(f"Построено ребро жесткости (толщина {thickness} мм)")
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 def op_create_sketch_on_plane(runner, params):
     """
     Создает эскиз на базовой или смещенной плоскости и открывает его для редактирования.
@@ -853,11 +674,10 @@ def op_create_sketch_on_plane(runner, params):
         return
 
     plane_name = params.get("plane", "XY")
-    offset = float(params.get("offset", 0.0)) # Убеждаемся, что это число
+    offset = float(params.get("offset", 0.0)) 
 
     import win32com.client
-    
-    # 1. Получаем базовую плоскость
+
     try:
         const = win32com.client.gencache.EnsureModule("{75C9F5D0-B5BF-11D3-BF26-005084D136BD}", 0, 1, 0).constants
         plane_map = {"XY": const.o3d_planeXOY, "ZX": const.o3d_planeXOZ, "ZY": const.o3d_planeYOZ}
@@ -871,7 +691,6 @@ def op_create_sketch_on_plane(runner, params):
 
     target_plane = base_plane
     
-    # 2. Если есть смещение, создаем смещенную плоскость
     if offset != 0.0:
         try:
             aux_geom = win32com.client.CastTo(part, 'IAuxiliaryGeomContainer')
@@ -881,11 +700,9 @@ def op_create_sketch_on_plane(runner, params):
                 
                 plane_params = win32com.client.CastTo(plane_obj, 'IPlane3DByOffset')
                 
-                # ЯВНОЕ ПРИВЕДЕНИЕ базовой плоскости к интерфейсу IModelObject
                 base_plane_model = win32com.client.CastTo(base_plane, 'IModelObject')
                 plane_params.BasePlane = base_plane_model
-                
-                # Явно передаем значения нужных типов
+
                 plane_params.Offset = abs(offset)
                 plane_params.Direction = True if offset > 0 else False
                 
@@ -898,18 +715,15 @@ def op_create_sketch_on_plane(runner, params):
             print(f"Предупреждение: Не удалось создать смещенную плоскость: {e}")
             target_plane = base_plane
 
-    # 3. Создаем эскиз
     sketches = runner.module7.IModelContainer(part).Sketchs
     sketch = sketches.Add()
     
-    # Также явно приводим целевую плоскость к IModelObject для эскиза (Type Mismatch proof)
     target_plane_model = win32com.client.CastTo(target_plane, 'IModelObject')
     sketch.Plane = target_plane_model
     sketch.Update()
     
     runner.ctx["sketch"] = sketch
     
-    # 4. Входим в режим редактирования
     try:
         sketch_doc = sketch.BeginEdit()
         runner.ctx["sketch_doc"] = sketch_doc
@@ -942,7 +756,6 @@ def op_draw_line(runner, params):
     dx = params.get("dx")
     dy = params.get("dy")
     
-    # Читаем явное указание от LLM
     is_axis = params.get("is_axis", False)
 
     points = runner.ctx.get("current_contour_points", [])
@@ -978,7 +791,6 @@ def op_draw_line(runner, params):
             line.Style = style
             line.Update()
 
-            # Добавляем точки в трекер контура, чтобы следующие линии рисовались отсюда
             if not points:
                 points.append(start)
             points.append(end)
@@ -1004,7 +816,6 @@ def op_close_contour(runner, params):
     start = points[-1]
     end = points[0]
     
-    # Просто вызываем op_draw_line с нужными координатами
     op_draw_line(runner, {"start": start, "end": end})
     print("Контур замкнут")
 
@@ -1019,7 +830,6 @@ def op_finish_sketch(runner, params):
             runner.ctx.pop("sketch_doc", None)
             runner.ctx.pop("current_contour_points", None)
             
-            # Сохраняем эскиз под именем, если передано save_as
             save_as = params.get("save_as")
             if save_as:
                 runner.ctx[save_as] = sketch
@@ -1037,7 +847,6 @@ def _get_axis_object(part, axis_name):
     """
     import win32com.client
 
-    # Получаем константы КОМПАС
     try:
         const = win32com.client.gencache.EnsureModule(
             "{75C9F5D0-B5BF-11D3-BF26-005084D136BD}", 0, 1, 0

@@ -11,12 +11,10 @@ class JsonKompasRunner:
         self.app = app
         self.const7 = const7
         self.ctx = {}
-        
-        # Автоматическая сборка словаря команд
+
         self.operations_map = {}
         for name, func in inspect.getmembers(operations, inspect.isfunction):
             if name.startswith("op_"):
-                # Убираем префикс "op_" чтобы получить имя команды
                 json_command_name = name[3:] 
                 self.operations_map[json_command_name] = func
 
